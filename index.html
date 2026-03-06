@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Github-Tracker-Login</title>
+    <link rel="stylesheet" href="./src/input.css" />
 
     <!-- Daisy Ui and Tailwind css link -->
     <link
@@ -16,7 +17,7 @@
   <body>
     <!-- Login Form -->
 
-    <div class="max-w-[520px] mx-auto m-10 p-8 shadow-2xl">
+    <div class="max-w-[520px] mx-auto m-10 p-8 shadow-2xl relative">
       <div class="text-center space-y-1.5">
         <img src="./assets/github-logo.png" alt="" class="mx-auto" />
         <h1 class="text-2xl font-semibold">GitHub Issues Tracker</h1>
@@ -45,7 +46,7 @@
               id="passwordInput"
             />
             <div><a class="link link-hover">Forgot password?</a></div>
-            <button class="btn btn-primary mt-4">Login</button>
+            <button class="btn btn-primary mt-4" id="loginBtn">Login</button>
           </fieldset>
         </div>
       </div>
@@ -56,6 +57,44 @@
         <h3><span class="font-semibold">Username:</span> admin</h3>
         <h3><span class="font-semibold">Password:</span> admin123</h3>
       </div>
+
+
+      <!-- Success notification -->
+ <div role="alert" class="alert alert-success  absolute top-0 w-full left-0 hidden" id="successAlert">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>Your purchase has been confirmed!</span>
+</div>
+
+
+<!-- Open the modal using ID.showModal() method -->
+<dialog id="my_modal_1" class="modal">
+  <div class="modal-box bg-warning">
+    <h3 class="text-lg font-bold">Warning:</h3>
+    <p class="py-4"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+  </svg>
+  <span> Invalid email address!</span> </p>
+  <p>Please Try Again</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Close</button>
+      </form>
     </div>
+  </div>
+</dialog>
+
+
+
+
+    </div>
+
+
+
+ 
+    <!-- JavaScript Pluging -->
+    <script src="script/login.js"></script>
   </body>
 </html>
