@@ -1,8 +1,22 @@
 let allIssueContainer = document.getElementById("allIssueContainer");
 
 let counter = document.getElementById("counter");
+let allBtn = document.getElementById("allBtn");
+let openBtn = document.getElementById("openBtn");
+let closeBtn = document.getElementById("closeBtn");
+let issueAllData = [];
+let loading = document.getElementById("loading");
+
+let search = document.getElementById("searchBox");
 
 // All Issue Feact Link
+
+let showLoading = () => {
+  loading.classList.remove("hidden");
+};
+let closeLoading = () => {
+  loading.classList.add("hidden");
+};
 
 let updateCounter = () => {
   counter.innerText = allIssueContainer.children.length;
@@ -13,8 +27,9 @@ let allIssue = async () => {
 
   let res = await fetch(url);
   let data = await res.json();
+  issueAllData = data.data;
 
-  showIssue(data.data);
+  showIssue(issueAllData);
   console.log(data.data);
 };
 
@@ -23,6 +38,9 @@ allIssue();
 // Show Issue Into Container
 
 let showIssue = async (data) => {
+  allIssueContainer.innerHTML = "";
+  showLoading();
+
   data.forEach((info) => {
     let card = document.createElement("div");
     card.innerHTML = `
@@ -58,42 +76,36 @@ let showIssue = async (data) => {
                   .join("")}
                 </div>
                 <div class="text-gray-500 border-t border-gray-300 pt-2.5">
-                    <p>#1 by ${info.author}</p>
+                    <p>#${info.id} by ${info.author}</p>
                     <p>${new Date(info.createdAt).toLocaleString()}</p>
                 </div>
                 
             </div>
     `;
     allIssueContainer.appendChild(card);
-
-
-
   });
+  closeLoading();
   updateCounter();
 };
 
+let forModal = async (id) => {
+  url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  let res = await fetch(url);
+  let data = await res.json();
+  console.log(data);
+  showInfoModal(data.data);
+};
 
-
-
-let forModal = async(id)=>{
-    url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
-    let res =await fetch(url);
-    let data= await res.json();
-console.log(data);
-    showInfoModal(data.data);
-
-}
-
-let showInfoModal = (data)=>{
-console.log(data.id);
-let modalContainer = document.getElementById("modalContainer");
-modalContainer.innerHTML = `
+let showInfoModal = (data) => {
+  console.log(data.id);
+  let modalContainer = document.getElementById("modalContainer");
+  modalContainer.innerHTML = `
 <dialog id="infoModal" class="modal">
-  <div class="modal-box w-11/12 space-y-2.5  ${data.status=== "open"? 'shadow-xl shadow-green-900': 'shadow-xl shadow-purple-900'}">
+  <div class="modal-box w-11/12 space-y-2.5  ${data.status === "open" ? "shadow-xl shadow-green-900" : "shadow-xl shadow-purple-900"}">
     <h3 class=" font-bold text-xl">${data.title}</h3>
     <div>
 
-      <span class="rounded-4xl ${data.status=== "open"? 'bg-green-500': 'bg-purple-500'} bg-green-500 text-white py-1 px-3">${data.status}</span> 
+      <span class="rounded-4xl ${data.status === "open" ? "bg-green-500" : "bg-purple-500"} bg-green-500 text-white py-1 px-3">${data.status}</span> 
       <span class="text-xs text-gray-500">● Opened by ${data.author} ● ${new Date(data.createdAt).toLocaleString()}</span>
     </div>
     <div class="flex gap-2 flex-wrap">
@@ -124,7 +136,7 @@ modalContainer.innerHTML = `
     <div class="flex justify-between items-center">
       <div>
         <p class="text-gray-500">Assignee:</p>
-        <p>${data.assignee?data.assignee: "Not Mention"}</p>
+        <p>${data.assignee ? data.assignee : "Not Mention"}</p>
       </div>
       <div class="text-start w-1/2">
         <p>Priority</p>
@@ -144,5 +156,47 @@ modalContainer.innerHTML = `
 
 `;
 
-document.getElementById("infoModal").showModal();
-}
+  document.getElementById("infoModal").showModal();
+};
+
+let filterIssue = (status) => {
+  showLoading();
+
+  setTimeout(() => {
+    if (status === "all") {
+      showIssue(issueAllData);
+    } else if (status === "open") {
+      let filteredOpen = issueAllData.filter(
+        (issue) => issue.status === "open",
+      );
+      showIssue(filteredOpen);
+    } else if (status === "closed") {
+      let filterClosed = issueAllData.filter(
+        (issue) => issue.status === "closed",
+      );
+      showIssue(filterClosed);
+    }
+  }, 500);
+};
+let showActiveBtn = (id) => {
+  allBtn.classList.remove("btn-primary");
+  closeBtn.classList.remove("btn-primary");
+  openBtn.classList.remove("btn-primary");
+  let select = document.getElementById(id);
+  select.classList.add("btn-primary");
+};
+
+search.addEventListener("keyup", async () => {
+  showLoading();
+  let searchValue = search.value.trim().toLowerCase();
+  console.log(searchValue);
+  url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`;
+  let res = await fetch(url);
+  let data = await res.json();
+
+  let allData = data.data;
+  let filterData = allData.filter((word) =>
+    word.title.toLowerCase().includes(searchValue),
+  );
+  showIssue(filterData);
+});

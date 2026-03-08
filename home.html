@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Issues Tracker</title>
     <link rel="stylesheet" href="./src/input.css" />
+    <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
     <!-- FontAwsome -->
 
     <link
@@ -48,7 +49,7 @@
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input type="search" required placeholder="Search issues..." />
+            <input type="search" required placeholder="Search issues..." id="searchBox" />
           </label>
           <button class="btn btn-primary hidden md:block">
             <i class="fa-solid fa-plus"></i> New Issue
@@ -62,9 +63,9 @@
     <main class="w-10/12 mx-auto ">
       <!-- Category btn -->
       <section class="p-4 shadow-xl my-4 space-x-2 rounded-lg">
-        <button class="btn btn-primary px-10" id="allBtn">All</button>
-        <button class="btn px-10" id="openBtn">Open</button>
-        <button class="btn px-10" id="closeBtn">Close</button>
+        <button onclick="filterIssue('all'),showActiveBtn('allBtn')"   class="btn btn-primary px-10" id="allBtn">All</button>
+        <button onclick="filterIssue('open'),showActiveBtn('openBtn')" class="btn px-10" id="openBtn">Open</button>
+        <button onclick="filterIssue('closed'),showActiveBtn('closeBtn')"  class="btn px-10" id="closeBtn">Close</button>
       </section>
       <!-- Issue Section -->
       <section class="mt-4 bg-white space-x-2 rounded-lg">
@@ -88,32 +89,16 @@
         </div>
 
 
-        <!-- You can open the modal using ID.showModal() method -->
-<!-- <button class="btn" onclick="infoModal.showModal()">open modal</button> -->
 
         <!-- All Issue Show Container -->
+         <div class="h-[80vh] flex items-center justify-center" id="loading">
+
+           <span  class="loading loading-bars loading-xl"></span>
+
+         </div>
+
 
         <div id="allIssueContainer" class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center items-stretch">
-            <!-- <div class=" p-4 bg-blue-50  rounded-lg  border-t-4 border-green-500 space-y-2.5 ">
-                <div class="flex justify-between items-center">
-                    <img src="./assets/Open-Status.png" alt="" >
-                    <button class="px-8 py-1 rounded-4xl bg-red-100 text-red-500">HIGH</button>
-
-                </div>
-                <h1 class="font-semibold text-lg">Fix navigation menu on mobile devicess</h1>
-                <p class="text-gray-500">The navigation menu doesn't collapse properly on mobile devices...</p>
-                <div>
-                    <button class="px-2 py-1 rounded-4xl bg-red-100 text-red-500 border border-red-500"><i class="fa-solid fa-bug"></i> BUG</button>
-                    <button class="px-2 py-1 rounded-4xl bg-yellow-100 text-yellow-600 border border-yellow-500"><i class="fa-solid fa-life-ring"></i> HELP WANTED</button>
-
-                </div>
-                <div class="text-gray-500 border-t border-gray-300 pt-2.5">
-                    <p>#1 by John_deo</p>
-                    <p>1/15/2024</p>
-                </div>
-                
-            </div> -->
-            
 
         </div>
       </section>
