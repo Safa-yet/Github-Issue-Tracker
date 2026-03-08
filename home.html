@@ -90,40 +90,7 @@
 
         <!-- You can open the modal using ID.showModal() method -->
 <!-- <button class="btn" onclick="infoModal.showModal()">open modal</button> -->
-<dialog id="infoModal" class="modal">
-  <div class="modal-box w-11/12 space-y-2.5">
-    <h3 class="text-lg font-bold">Fix Boroken Img</h3>
-    <div>
 
-      <span class="rounded-4xl bg-green-500 text-white py-1 px-3">Opened</span> 
-      <span class="text-xs text-gray-500">● Opened by Fahim Ahmed ● 22/02/2026</span>
-    </div>
-    <div>
-                    <button class="px-2 py-1 rounded-4xl bg-red-100 text-red-500 border border-red-500"><i class="fa-solid fa-bug"></i> BUG</button>
-                    <button class="px-2 py-1 rounded-4xl bg-yellow-100 text-yellow-600 border border-yellow-500"><i class="fa-solid fa-life-ring"></i> HELP WANTED</button>
-
-                </div>
-    <p class="py-4 text-gray-500">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</p>
-    <div class="flex justify-between items-center">
-      <div>
-        <p class="text-gray-500">Assignee:</p>
-        <p>Fahim Ahmen</p>
-      </div>
-      <div class="text-start w-1/2">
-        <p>Priority</p>
-        <button class="px-8 py-1 rounded-4xl bg-red-100 text-red-500">HIGH</button>
-
-
-      </div>
-    </div>
-    <div class="modal-action">
-      <form method="dialog">
-        <!-- if there is a button, it will close the modal -->
-        <button class="btn">Close</button>
-      </form>
-    </div>
-  </div>
-</dialog>
         <!-- All Issue Show Container -->
 
         <div id="allIssueContainer" class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center items-stretch">
@@ -151,6 +118,12 @@
         </div>
       </section>
     </main>
+
+
+
+    <!-- Show Modal -->
+     <div id="modalContainer"></div>
+    
 
     <!-- JavaScript Pluging -->
     <script src="script/app.js"></script>
