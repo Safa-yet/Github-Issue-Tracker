@@ -1,6 +1,6 @@
 1️⃣ What is the difference between var, let, and const?
 
-Answer :
+
 var= var is a function scoped. it can be redeclared and reassigned. Because of hoisting and scope issues,
 const = const is block scoped. It can be reassigned but cannot be redeclared in the same scope.
 let = let is also block scoped.it cannot be reassign after the value is assigne.
@@ -8,7 +8,7 @@ let = let is also block scoped.it cannot be reassign after the value is assigne.
 
 2️⃣ What is the spread operator (...)?
 
-Answer: It is one kind of sallow copy. we can marge multiple array or object and also can pass multiple value into function.
+It is one kind of sallow copy. we can marge multiple array or object and also can pass multiple value into function.
 
 
 3️⃣ What is the difference between map(), filter(), and forEach()?
